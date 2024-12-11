@@ -36,3 +36,32 @@ the project.
 | CAUSE.CATEGORY.DETAIL | Detailed description of the event categories causing the major power outages |
 | OUTAGE.DURATION | Duration of outage events (in minutes) |
 | RES.PERCEN | Percentage of residential electricity consumption compared to the total electricity consumption in the state (in %) |
+
+# Data Cleaning and Exploratory Data Anaylsis
+
+Before proceding with more advance anaylsis it is important to understand the 
+data and how I have cleaned it.
+
+## Data Cleaning
+
+1. The first cleaning step is deciding which columns in the dataset to keep. The
+following columns were those kept for this project: YEAR, NERC.REGION, 
+CLIMATE.REGION, ANOMALY.LEVEL, OUTAGE.START.DATE, OUTAGE.START.TIME, OUTAGE.RESTORATION.DATE, OUTAGE.RESTORATION.TIME, CAUSE.CATEGORY, CAUSE.CATEGORY.DETAIL,
+OUTAGE.DURATION, RES.PERCEN
+2. The second cleaning step is combining columns with complimentary data. The columns OUTAGE.START.DATE and OUTAGE.START.TIME are combined into a singlur new 
+OUTAGE.START column that records the day and time an outage begins at. The columns OUTAGE.RESTORATION.DATE and OUTAGE.RESTORATION.TIME are combined into a singlur new 
+OUTAGE.RESTORATION column that records the day and time an outage ends at.
+3. The third cleaning step is replacing the 0 values in OUTAGE.DURATION with
+np.nan as these values are likely indicative of missingness.
+
+Dataset Head:
+|   OUTAGE.DURATION | CAUSE.CATEGORY     | CAUSE.CATEGORY.DETAIL   | NERC.REGION   | CLIMATE.REGION     |   ANOMALY.LEVEL |   YEAR |   RES.PERCEN | OUTAGE.START        | OUTAGE.RESTORATION   |
+|------------------:|:-------------------|:------------------------|:--------------|:-------------------|----------------:|-------:|-------------:|:--------------------|:---------------------|
+|              3060 | severe weather     | nan                     | MRO           | East North Central |            -0.3 |   2011 |      35.5491 | 2011-07-01 17:00:00 | 2011-07-03 20:00:00  |
+|                 1 | intentional attack | vandalism               | MRO           | East North Central |            -0.1 |   2014 |      30.0325 | 2014-05-11 18:38:00 | 2014-05-11 18:39:00  |
+|              3000 | severe weather     | heavy wind              | MRO           | East North Central |            -1.5 |   2010 |      28.0977 | 2010-10-26 20:00:00 | 2010-10-28 22:00:00  |
+|              2550 | severe weather     | thunderstorm            | MRO           | East North Central |            -0.1 |   2012 |      31.9941 | 2012-06-19 04:30:00 | 2012-06-20 23:00:00  |
+|              1740 | severe weather     | nan                     | MRO           | East North Central |             1.2 |   2015 |      33.9826 | 2015-07-18 02:00:00 | 2015-07-19 07:00:00  |
+
+## Exploratory Data Anaylsis
+
