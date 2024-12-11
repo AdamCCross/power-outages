@@ -71,3 +71,14 @@ Dataset Head:
 
 ## Exploratory Data Anaylsis
 
+### Univariate Analysis
+
+This sections begins Exploratory Data Anaylsis with the exmination of single variabel distributions.
+
+It is first important to see how major power outages have been trending in the dataset over time.
+<iframe
+  src="assets/outages_yearly.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
