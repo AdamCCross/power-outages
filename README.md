@@ -73,7 +73,7 @@ Dataset Head:
 
 ### Univariate Analysis
 
-This sections begins Exploratory Data Anaylsis with the exmination of single variabel distributions.
+This section begins Exploratory Data Anaylsis with the examination of single variable distributions.
 
 It is first important to see how major power outages have been trending in the dataset over time.
 <iframe
@@ -82,3 +82,58 @@ It is first important to see how major power outages have been trending in the d
   height="600"
   frameborder="0"
 ></iframe>
+
+Another variable of intrest is outage duration
+<iframe
+  src="assets/outage_duration_dist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Bivariate Analysis
+
+This section contains the most significant relationships between outage duration and other variables.
+
+The average power outage duration can be seen as trending down over time.
+<iframe
+  src="assets/outage_duration_time_change.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The duration of a power outage appears connected to the cuase of the outage. Severe weather has the highest median duration.
+<iframe
+  src="assets/outage_duration_cuase_category.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The duration of a power outage also appears associated with the day of the week the outage begins on. Days on the weekend seems to have a longer outage duration.
+<iframe
+  src="assets/outage_duration_weekday.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+### Grouping and Aggregate
+
+The pivot table below shows the average anomaly level and outage duration for each of the climate regions present in the data. This aggragate grouping reveals how climate region may be an important factor of outage duration.
+
+| CLIMATE.REGION     |   ANOMALY.LEVEL |   OUTAGE.DURATION |
+|:-------------------|----------------:|------------------:|
+| West North Central |     -0.2375     |           796.071 |
+| Northwest          |     -0.00681818 |          1536.36  |
+| Southwest          |     -0.0467391  |          1621.41  |
+| West               |     -0.0285714  |          1636.31  |
+| Southeast          |     -0.135333   |          2247.66  |
+| South              |      0.0180617  |          2872.45  |
+| Central            |     -0.166332   |          2882.21  |
+| Northeast          |     -0.176218   |          3330.52  |
+| East North Central |     -0.15942    |          5391.4   |
+
+
+## Assessment of Missingness
