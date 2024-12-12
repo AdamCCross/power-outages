@@ -137,3 +137,59 @@ The pivot table below shows the average anomaly level and outage duration for ea
 
 
 ## Assessment of Missingness
+
+### Not Missing at Random Analysis
+
+Many of the columns in the dataset contain missing columns. One of these columns whose missingness could be interpreted as not missing at Random (NMAR) would be DEMAND.LOSS.MW. This column records the amount of peak demand lost during an outage event (in Megawatt), but in many observations it is actually the total demand lost reported. It is likely MNAR because the value in this column, including wiether it is missing, is likely dependent on data itself and where it came from. This data could be beter explained and potionally identified as missing at random (MAR) through the included provision of which utility is reporting each outage in the dataset.
+
+### Missingness Dependency
+
+To test missing dependency I will examin the distribution of OUTAGE.START Day of Week and NERC.REGION against OUTAGE.DURATION missingness.
+
+#### Day of Week
+
+Examine the distribution of OUTAGE.START Day of Week when OUTAGE.DURATION is missing vs. not missing.
+
+<b>Null Hypothesis</b>: The distribution of Day of Week is the same when Duration is missing vs. not missing
+
+<b>Alternate Hypothesis</b>: The distribution of Day of Week is different when Duration is mising vs. not missing
+
+<iframe
+  src="assets/weekday_missingness_dep.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+An observed TVD value of 0.08 was found with a p-value of 0.64. The empirical distribution fo the TVDs is shown below. At the given p-value, I fail to reject the null hypothesis that distribution of Day of Week is the same when Duration is missing vs. not missing. This indicates the missingness of OUTAGE.DURATION is not dependent on the day of the week for OUTAGE.START.
+
+<iframe
+  src="assets/weekday_missingness_TVD_dist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+#### NERC Region
+
+Examine teh disribution of NERC.REGION when OUTAGE.DURATION is missing vs. not missing.
+
+<b>Null Hypothesis</b>: The distribution of NERC.REGION is the same when OUTAGE.DURATION is missing vs. not missing
+
+<b>Alternate Hypothesis</b>: The distribution of NERC.REGION is different when OUTAGE.DURATION is mising vs. not missing
+
+<iframe
+  src="assets/NERC_missingness_duration_dep.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+An observed TVD value of 0.14 was found with a p-value of 0.04. The empirical distribution fo the TVDs is shown below. At the given p-value, I reject the null hypothesis in favor of the alternate hypothesis. This indicates the missingness of OUTAGE.DURATION is dependent on the NERC Region in NERC.REGION.
+
+<iframe
+  src="assets/NERC_missingness_TVD_dist.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
