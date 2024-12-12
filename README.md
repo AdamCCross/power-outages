@@ -136,17 +136,17 @@ The pivot table below shows the average anomaly level and outage duration for ea
 | East North Central |     -0.15942    |          5391.4   |
 
 
-## Assessment of Missingness
+# Assessment of Missingness
 
-### Not Missing at Random Analysis
+## Not Missing at Random Analysis
 
 Many of the columns in the dataset contain missing columns. One of these columns whose missingness could be interpreted as not missing at Random (NMAR) would be DEMAND.LOSS.MW. This column records the amount of peak demand lost during an outage event (in Megawatt), but in many observations it is actually the total demand lost reported. It is likely MNAR because the value in this column, including whether it is missing, is likely dependent on data itself and where it came from. This data could be beter explained and potionally identified as missing at random (MAR) through the included provision of which utility is reporting each outage in the dataset.
 
-### Missingness Dependency
+## Missingness Dependency
 
 To test missing dependency I will examin the distribution of OUTAGE.START Day of Week and NERC.REGION against OUTAGE.DURATION missingness.
 
-#### Day of Week
+### Day of Week
 
 Examine the distribution of OUTAGE.START Day of Week when OUTAGE.DURATION is missing vs. not missing.
 
@@ -170,7 +170,7 @@ An observed TVD value of 0.08 was found with a p-value of 0.64. The empirical di
   frameborder="0"
 ></iframe>
 
-#### NERC Region
+### NERC Region
 
 Examine teh disribution of NERC.REGION when OUTAGE.DURATION is missing vs. not missing.
 
@@ -194,14 +194,44 @@ An observed TVD value of 0.14 was found with a p-value of 0.04. The empirical di
   frameborder="0"
 ></iframe>
 
-## Hypothesis Testing
+# Hypothesis Testing
 
 I tested whether there is a significant difference between outage durations for outages that start at different hours of the day. The relevant columns for this test were OUTAGE.DURATION and OUTAGE.START. This test is used to confirm if the outage start hour will be potenitally useful in predicting OUTAGE.DURATION in the future. 
 
 <b>Null Hypothesis</b>: The median duration of outages in OUTAGE.DURATION is the same for all hours of the day in OUTAGE.START.
+
 <b>Alternate Hypothesis</b>: The median duration of outages in OUTAGE.DURATION differs across hours of the day in OUTAGE.START.
+
 <b>Test Statistic</b>: Mood's Median Test
 
 After conducting this hypothesis test a p-value of 0.00 was found. With a p-value at this level I reject the null hypothesis that the median duration of outages in OUTAGE.DURATION is the same for all hours of the day in OUTAGE.START when using the standard p-value standard of 0.05 to determine significance. These results indicate the hour an outage begins at could be useful in analysing differences in outage duration across power outages.
 
-## Framing a Prediction Problem
+# Framing a Prediction Problem
+
+The model in this project will attempt to predict the duration of a power outage (OUTAGE.DURATION). It will be a regression model as its focus will be on predicting a continous variable.
+
+The metric the model will be evaluated on is Root Mean Squared Error (RMSE). This metric was choosen becuase of how it can be used to indicate how far off a prediction is using a unit denominated number. 
+
+At the time of prediction the OUTAGE.START, OUTAGE.CAUSE, OUTAGE.CAUSE.DETIAL, NERC.REGION, and CLIMATE.REGION are some of the known variables.
+
+# Baseline Model
+
+The Baseline Model is a DecisionTreeRegressor built to predict an outage's OUTAGE.DURATION using the hour the outage began in as stored in OUTAGE.START along with CAUSE.CATEGORY and CAUSE.CATEGORY.DETAIL.
+
+Features Used: 
+    - <b>HOUR</b>: The hour of the day an outage started at as stored in OUTAGE.START. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start hour and duration. 
+    - <b>CAUSE_COMBINED</b>: The combined string values stored in CAUSE.CATEGORY and CAUSE.CATEGORY.DETAIL so that an outage's cuase is treated as one unique feature. It is One-Hot-Encoded as a nominal categorical variable..
+
+The predicted column OUTAGE.DURATION was normalized to mitigate the effects of an extreme right skew. The graph below showcases this transformation's effects on the disribution of OUTAGE.DURATION. 
+
+<iframe
+  src="assets/duration_transformation.png"
+  width="700"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The performace of this model was not great. It achieved an R<sup>2</sup> of 0.34 and an RMSE value of 4.54. This shows the model fails to capture much of the variance expressed in OUTAGE.DURATION.
+
+# Final Model
+
