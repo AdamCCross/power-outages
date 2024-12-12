@@ -219,10 +219,10 @@ At the time of prediction the OUTAGE.START, OUTAGE.CAUSE, OUTAGE.CAUSE.DETIAL, N
 The Baseline Model is a DecisionTreeRegressor built to predict an outage's OUTAGE.DURATION using the hour the outage began in as stored in OUTAGE.START along with CAUSE.CATEGORY and CAUSE.CATEGORY.DETAIL.
 
 Features Used: 
-    /n
-    <b>HOUR</b>: The hour of the day an outage started at as stored in OUTAGE.START. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start hour and duration.
-    /n
-    <b>CAUSE_COMBINED</b>: The combined string values stored in CAUSE.CATEGORY and CAUSE.CATEGORY.DETAIL so that an outage's cuase is treated as one unique feature. It is One-Hot-Encoded as a nominal categorical variable..
+
+> <b>HOUR</b>: The hour of the day an outage started at as stored in OUTAGE.START. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start hour and duration.
+
+> <b>CAUSE_COMBINED</b>: The combined string values stored in CAUSE.CATEGORY and CAUSE.CATEGORY.DETAIL so that an outage's cuase is treated as one unique feature. It is One-Hot-Encoded as a nominal categorical variable.
 
 The predicted column OUTAGE.DURATION was normalized to mitigate the effects of an extreme right skew. The graph below showcases this transformation's effects on the disribution of OUTAGE.DURATION. 
 
