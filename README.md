@@ -220,9 +220,9 @@ The Baseline Model is a DecisionTreeRegressor built to predict an outage's OUTAG
 
 Features Used: 
 
-> <b>HOUR</b>: The hour of the day an outage started at as stored in OUTAGE.START. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start hour and duration.
-
 > <b>CAUSE_COMBINED</b>: The combined string values stored in CAUSE.CATEGORY and CAUSE.CATEGORY.DETAIL so that an outage's cuase is treated as one unique feature. It is One-Hot-Encoded as a nominal categorical variable.
+>
+> <b>HOUR</b>: The hour of the day an outage started at as stored in OUTAGE.START. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start hour and duration.
 
 The predicted column OUTAGE.DURATION was normalized to mitigate the effects of an extreme right skew. The graph below showcases this transformation's effects on the disribution of OUTAGE.DURATION. 
 
@@ -237,4 +237,55 @@ The predicted column OUTAGE.DURATION was normalized to mitigate the effects of a
 The performace of this model was not great. It achieved an R<sup>2</sup> of 0.34 and an RMSE value of 4.54. This shows the model fails to capture much of the variance expressed in OUTAGE.DURATION.
 
 # Final Model
+
+The Final Model is a GradientBoostingRegressor built to predict an outage's OUTAGE.DURATION using the hour, day of week, month, and year the outage began in as stored in OUTAGE.START along with CAUSE.CATEGORY, CAUSE.CATEGORY.DETAIL, NERC.REGION, and CLIMATE REGION.
+
+Features Used: 
+
+> <b>CAUSE_COMBINED</b>: The combined string values stored in CAUSE.CATEGORY and CAUSE.CATEGORY.DETAIL so that an outage's cuase is treated as one unique feature. It is One-Hot-Encoded as a nominal categorical variable.
+>
+> <b>HOUR</b>: The hour of the day an outage started at as stored in OUTAGE.START. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start hour and duration.
+>
+> <b>WEEKDAY</b>: The day of week an outage started at as stored in OUTAGE.START. This varible was added becuase the day of week can be indicative of how fast a utility can address an outage. Outages on the weekend tend to take longer. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start day of week and duration.
+>
+> <b>MONTH</b>: The month an outage started at as stored in OUTAGE.START. This varible was added becuase the month can be indicative of season and if seanonal factors affect a utilities ability to address an outage. Outages in winter months tend to take longer. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start month and duration.
+>
+> <b>YEAR</b>: The year an outage started at as stored in OUTAGE.START. This varible was added becuase the year can account for the slow (on average) trend down in outage durations. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's start year and duration (some years still have higher outage durations, though the trend is down).
+>
+> <b>NERC.REGION</b>: The NERC region an outage occurs in. This variable was added because the regulatory body in charge of a utility can have an impact on how severe/long an outage can be. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's NERC region and duration.
+>
+> <b>CLIMATE.REGION</b>: The Climate region an outage occurs in. This variable was added because the climate an outage occurs in can affect how easy it is to address an outage and how extreme tempetures may be. It is One-Hot-Encoded as a nominal categorical variable. This is because a nonlinear relationship exists between an outage's climate region and duration.
+
+The predicted column OUTAGE.DURATION was normalized to mitigate the effects of an extreme right skew. The graph below showcases this transformation's effects on the distribution of OUTAGE.DURATION. 
+
+<iframe
+  src="assets/duration_transformation.png"
+  width="700"
+  height="600"
+  frameborder="0"
+></iframe>
+
+
+GridSearchCV was used to find the best hyperparameters for the GradientBoostingRegressor. The best hyperparameters identified were:
+
+<div style="margin-left: 20px;">
+    - ccp_alpha: 0.01
+    - max_depth: 5
+    - min_samples_leaf: 2
+    - min_samples_split: 10
+    - n_estimators: 500
+</div>
+
+The graph of below shows a relativly random distribution of residuals for the prediction model.
+
+<iframe
+  src="assets/prediction_residuals.png"
+  width="700"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The performace of this model was an improvement upon the base model. It achieved an R<sup>2</sup> of 0.52 and an RMSE value of 3.89. However, this perfomance shows the model fails to capture much of the variance expressed in OUTAGE.DURATION, like the baseline model, with approximately only half of the OUTAGE.DURATION variance accounted for. Further refinements will need to be explored in the future. 
+
+# Fairness Analysis
 
