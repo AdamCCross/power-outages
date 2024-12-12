@@ -78,7 +78,7 @@ This section begins Exploratory Data Anaylsis with the examination of single var
 It is first important to see how major power outages have been trending in the dataset over time.
 <iframe
   src="assets/outages_yearly.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -86,7 +86,7 @@ It is first important to see how major power outages have been trending in the d
 Another variable of intrest is outage duration
 <iframe
   src="assets/outage_duration_dist.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -98,7 +98,7 @@ This section contains the most significant relationships between outage duration
 The average power outage duration can be seen as trending down over time.
 <iframe
   src="assets/outage_duration_time_change.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -106,7 +106,7 @@ The average power outage duration can be seen as trending down over time.
 The duration of a power outage appears connected to the cuase of the outage. Severe weather has the highest median duration.
 <iframe
   src="assets/outage_duration_cuase_category.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -114,7 +114,7 @@ The duration of a power outage appears connected to the cuase of the outage. Sev
 The duration of a power outage also appears associated with the day of the week the outage begins on. Days on the weekend seems to have a longer outage duration.
 <iframe
   src="assets/outage_duration_weekday.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -156,7 +156,7 @@ Examine the distribution of OUTAGE.START Day of Week when OUTAGE.DURATION is mis
 
 <iframe
   src="assets/weekday_missingness_dep.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -165,7 +165,7 @@ An observed TVD value of 0.08 was found with a p-value of 0.64. The empirical di
 
 <iframe
   src="assets/weekday_missingness_TVD_dist.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -180,7 +180,7 @@ Examine teh disribution of NERC.REGION when OUTAGE.DURATION is missing vs. not m
 
 <iframe
   src="assets/NERC_missingness_duration_dep.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
@@ -189,7 +189,7 @@ An observed TVD value of 0.14 was found with a p-value of 0.04. The empirical di
 
 <iframe
   src="assets/NERC_missingness_TVD_dist.html"
-  width="800"
+  width="700"
   height="600"
   frameborder="0"
 ></iframe>
