@@ -140,7 +140,7 @@ The pivot table below shows the average anomaly level and outage duration for ea
 
 ### Not Missing at Random Analysis
 
-Many of the columns in the dataset contain missing columns. One of these columns whose missingness could be interpreted as not missing at Random (NMAR) would be DEMAND.LOSS.MW. This column records the amount of peak demand lost during an outage event (in Megawatt), but in many observations it is actually the total demand lost reported. It is likely MNAR because the value in this column, including wiether it is missing, is likely dependent on data itself and where it came from. This data could be beter explained and potionally identified as missing at random (MAR) through the included provision of which utility is reporting each outage in the dataset.
+Many of the columns in the dataset contain missing columns. One of these columns whose missingness could be interpreted as not missing at Random (NMAR) would be DEMAND.LOSS.MW. This column records the amount of peak demand lost during an outage event (in Megawatt), but in many observations it is actually the total demand lost reported. It is likely MNAR because the value in this column, including whether it is missing, is likely dependent on data itself and where it came from. This data could be beter explained and potionally identified as missing at random (MAR) through the included provision of which utility is reporting each outage in the dataset.
 
 ### Missingness Dependency
 
@@ -193,3 +193,15 @@ An observed TVD value of 0.14 was found with a p-value of 0.04. The empirical di
   height="600"
   frameborder="0"
 ></iframe>
+
+## Hypothesis Testing
+
+I tested whether there is a significant difference between outage durations for outages that start at different hours of the day. The relevant columns for this test were OUTAGE.DURATION and OUTAGE.START. This test is used to confirm if the outage start hour will be potenitally useful in predicting OUTAGE.DURATION in the future. 
+
+<b>Null Hypothesis</b>: The median duration of outages in OUTAGE.DURATION is the same for all hours of the day in OUTAGE.START.
+<b>Alternate Hypothesis</b>: The median duration of outages in OUTAGE.DURATION differs across hours of the day in OUTAGE.START.
+<b>Test Statistic</b>: Mood's Median Test
+
+After conducting this hypothesis test a p-value of 0.00 was found. With a p-value at this level I reject the null hypothesis that the median duration of outages in OUTAGE.DURATION is the same for all hours of the day in OUTAGE.START when using the standard p-value standard of 0.05 to determine significance. These results indicate the hour an outage begins at could be useful in analysing differences in outage duration across power outages.
+
+## Framing a Prediction Problem
