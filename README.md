@@ -268,13 +268,11 @@ The predicted column OUTAGE.DURATION was normalized to mitigate the effects of a
 
 GridSearchCV was used to find the best hyperparameters for the GradientBoostingRegressor. The best hyperparameters identified were:
 
-<div style="margin-left: 20px;">
-    - ccp_alpha: 0.01
-    - max_depth: 5
-    - min_samples_leaf: 2
-    - min_samples_split: 10
-    - n_estimators: 500
-</div>
+- ccp_alpha: 0.01
+- max_depth: 5
+- min_samples_leaf: 2
+- min_samples_split: 10
+- n_estimators: 500
 
 The graph of below shows a relativly random distribution of residuals for the prediction model.
 
