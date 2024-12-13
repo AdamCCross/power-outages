@@ -204,7 +204,7 @@ I tested whether there is a significant difference between outage durations for 
 
 <b>Test Statistic</b>: Mood's Median Test
 
-After conducting this hypothesis test a p-value of 0.00 was found. With a p-value at this level I reject the null hypothesis that the median duration of outages in OUTAGE.DURATION is the same for all hours of the day in OUTAGE.START when using the standard p-value standard of 0.05 to determine significance. These results indicate the hour an outage begins at could be useful in analysing differences in outage duration across power outages.
+After conducting this hypothesis test a p-value of 0.00 was found. With a p-value at this level I reject the null hypothesis that the median duration of outages in OUTAGE.DURATION is the same for all hours of the day in OUTAGE.START when using the standard p-value of 0.05 to determine significance. These results indicate the hour an outage begins at could be useful in analysing differences in outage duration across power outages.
 
 # Framing a Prediction Problem
 
@@ -274,7 +274,7 @@ GridSearchCV was used to find the best hyperparameters for the GradientBoostingR
 - min_samples_split: 10
 - n_estimators: 500
 
-The graph of below shows a relativly random distribution of residuals for the prediction model.
+The graph of below shows a relatively random distribution of residuals for the prediction model.
 
 <iframe
   src="assets/prediction_residuals.png"
@@ -287,3 +287,19 @@ The performace of this model was an improvement upon the base model. It achieved
 
 # Fairness Analysis
 
+I tested whether there is a significant difference between outage duration predictions for outages that occur in areas with residential percentages above the median vs. outages that occur in areas with residentail percentages at or below the median. The relevant columns for this test were OUTAGE.DURATION and RES.PERCEN. The evaluation metric is RMSE. This test is used to confirm if the model is fair for areas that all less residential. 
+
+<b>Null Hypothesis</b>: The model's RMSE is the same for areas with residential percentages above the median and for those with residencial percentages below the median.
+
+<b>Alternate Hypothesis</b>: The model's RMSE for areas with residential percentages above the median is significantly different from the RMSE for areas with residencial percentages at or below the median
+
+<b>Test Statistic</b>: Difference in RMSE
+
+After conducting a permutaion test with 10,000 permutations a p-value of 0.69 was found. With a p-value at this level I fail to reject the null hypothesis that the model's RMSE is the same for areas with residential percentages above the median and for those with residencial percentages below the median, when using the standard p-value of 0.05 to determine significance. These results indicate the model is fair for areas regardless of a higher or lower residential percentage.
+
+<iframe
+  src="assets/fairness_RMSE_diff.html"
+  width="700"
+  height="600"
+  frameborder="0"
+></iframe>
